@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class LivingEntity : MonoBehaviour, IDamagable
@@ -9,7 +9,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public bool IsDead { get; protected set; }
     public event Action OnDeath;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         IsDead = false;
         HP = maxHP;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HardFloor
   - Doorway
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,6 +14,8 @@ TagManager:
   - Floor
   - Water
   - UI
+  - Player
+  - 
   - Door
   - Enemy
   - 

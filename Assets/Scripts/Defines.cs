@@ -1,3 +1,10 @@
+﻿using UnityEngine;
+
+public enum EnemyType
+{
+    Melee,
+    Ranged,
+}
 public static class LayerName
 {
     public readonly static string Floor = "Floor";

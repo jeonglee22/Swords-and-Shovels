@@ -33,15 +33,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.CompareTag(TagString.Enemy))
+        if (collision.collider.CompareTag(TagString.Enemy) && IsAttack)
         {
             agent.velocity = Vector3.zero;
             agent.ResetPath();
-            if (IsAttack)
-            {
-                Attack(aimManager.AimTarget.GetComponent<LivingEntity>());
-                IsAttack = false;
-            }
+            Attack(aimManager.AimTarget.GetComponent<LivingEntity>());
+            IsAttack = false;
         }
     }
 }

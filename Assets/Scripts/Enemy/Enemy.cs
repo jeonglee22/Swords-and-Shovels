@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : Living
+public class Enemy : LivingEntity
 {
     public enum Status
     {
@@ -13,7 +13,7 @@ public class Enemy : Living
 
     [SerializeField] private float traceDistance;
     [SerializeField] private float attackDistance;
-    [SerializeField] private float damage = 10f;
+    [SerializeField] private int damage = 10;
     private float lastAttackTime;
     [SerializeField] private float attackInterval = 0.5f;
 
@@ -72,7 +72,7 @@ public class Enemy : Living
 
     public void Setup(EnemyDatas data)
     {
-        MaxHealth = data.maxHp;
+        maxHP = data.maxHp;
         damage = data.damage;
         agent.speed = data.speed;
         traceDistance = data.traceDistance;

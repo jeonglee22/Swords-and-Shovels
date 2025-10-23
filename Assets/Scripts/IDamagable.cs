@@ -2,5 +2,5 @@
 
 public interface IDamagable
 {
-    public void OnDamage(float damage);
+    public void OnDamage(int damage);
 }

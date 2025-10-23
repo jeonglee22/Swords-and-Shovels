@@ -60,15 +60,14 @@ public class PlayerMove : MonoBehaviour
         {
             Debug.Log(1);
             agentFinishPoint = aimManager.AimPosition.position;
-            if(Vector3.Distance(transform.position, jumpPos1) <= jumpDistance)
+            startPos = transform.position;
+            if (Vector3.Distance(transform.position, jumpPos1) <= jumpDistance)
             {
-                startPos = jumpPos1;
-                endPos = jumpPos2 + Vector3.forward * jumpDistance * 2f;
+                endPos = jumpPos2 + Vector3.forward * jumpDistance * 1.5f;
             }
             else
             {
-                startPos = jumpPos2;
-                endPos = jumpPos1 + Vector3.forward * jumpDistance * -2f;
+                endPos = jumpPos1 + Vector3.forward * jumpDistance * -1.5f;
             }
             IsCanJump = false;
             IsJump = true;

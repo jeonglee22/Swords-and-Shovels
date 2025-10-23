@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private NavMeshAgent agent;
     public bool IsAttack;
 
+    public ParticleSystem attackParticle;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
             agent.velocity = Vector3.zero;
             agent.ResetPath();
             Attack(aimManager.AimTarget.GetComponent<LivingEntity>());
+            attackParticle.Play();
             IsAttack = false;
         }
     }

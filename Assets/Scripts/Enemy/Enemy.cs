@@ -105,8 +105,6 @@ public class Enemy : LivingEntity
 
                 break;
         }
-
-        Debug.Log(currentStatus);
     }
 
     public override void Die()
@@ -208,7 +206,7 @@ public class Enemy : LivingEntity
     //애니메이션 이벤트
     public void Hit()
     {
-        
+
     }
 
     private void OnDrawGizmosSelected()

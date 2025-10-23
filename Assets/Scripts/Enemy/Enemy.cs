@@ -109,7 +109,7 @@ public class Enemy : LivingEntity
         Debug.Log(currentStatus);
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
         currentStatus = Status.Die;

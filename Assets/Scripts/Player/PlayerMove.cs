@@ -11,7 +11,6 @@ public class PlayerMove : MonoBehaviour
     private PlayerAttack playerAttack;
 
     public Transform[] doorMoveEndPos;
-    public Collider[] doorColliders;
 
     private void Awake()
     {

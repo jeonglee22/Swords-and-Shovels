@@ -31,6 +31,8 @@ public class Enemy : Living
 
     [SerializeField] private EnemyType enemyType = EnemyType.Melee;
 
+    [SerializeField] private Bullet bullet;
+
     private Status currentStatus;
     public Status CurrentStatus
     {
@@ -164,11 +166,24 @@ public class Enemy : Living
             var damagable = target.GetComponent<IDamagable>();
             if(damagable != null)
             {
-                damagable.OnDamage(damage);
+                switch (enemyType)
+                {
+                    case EnemyType.Melee:
+                        damagable.OnDamage(damage);
+                        break;
+                    case EnemyType.Ranged:
+                        break;
+                }
 
                 animator.SetTrigger("Attack");
             }
         }
+    }
+
+    private void Shoot(Vector3 dir)
+    {
+        var prefab = Instantiate(bullet);
+        prefab.gameObject.SetActive(true);
     }
 
     protected Transform FindTarget(float radius)

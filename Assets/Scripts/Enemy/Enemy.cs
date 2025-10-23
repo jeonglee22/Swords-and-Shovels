@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : LivingEntity
@@ -20,6 +22,7 @@ public class Enemy : LivingEntity
     [SerializeField] private EnemyDatas data;
 
     private Transform target;
+    [SerializeField] private Transform shootPoint;
 
     private NavMeshAgent agent;
 
@@ -66,8 +69,6 @@ public class Enemy : LivingEntity
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         EnemyCollider = GetComponent<Collider>();
-
-        Setup(data);
     }
 
     public void Setup(EnemyDatas data)
@@ -106,14 +107,14 @@ public class Enemy : LivingEntity
                 break;
         }
 
-        Debug.Log(currentStatus);
+        //Debug.Log(currentStatus);
     }
 
     public override void Die()
     {
         base.Die();
         currentStatus = Status.Die;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 1f);
     }
 
     private void UpdateIdle()
@@ -172,6 +173,7 @@ public class Enemy : LivingEntity
                         damagable.OnDamage(damage);
                         break;
                     case EnemyType.Ranged:
+                        Shoot();
                         break;
                 }
 
@@ -180,10 +182,15 @@ public class Enemy : LivingEntity
         }
     }
 
-    private void Shoot(Vector3 dir)
+    private void Shoot()
     {
-        var prefab = Instantiate(bullet);
-        prefab.gameObject.SetActive(true);
+        Bullet prefab = Instantiate(bullet);
+
+        prefab.gameObject.transform.position = shootPoint.position;
+        prefab.gameObject.transform.rotation = transform.rotation;
+        prefab.Damage = damage;
+
+        Destroy(prefab.gameObject, 1f);
     }
 
     protected Transform FindTarget(float radius)

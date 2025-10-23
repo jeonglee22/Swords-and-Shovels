@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee
   m_EditorClassIdentifier: 
   maxHp: 100
-  damage: 5
+  damage: 10
   speed: 3.5
   traceDistance: 3
   attackDistance: 1

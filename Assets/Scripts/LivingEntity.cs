@@ -29,6 +29,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public virtual void Die()
     {
         OnDeath?.Invoke();
+        Destroy(gameObject);
         IsDead = true;
     }
 }

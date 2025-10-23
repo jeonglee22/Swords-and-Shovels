@@ -27,3 +27,8 @@ public enum MouseAim
 
     AimCount,
 }
+
+public static class TagString
+{
+    public readonly static string Enemy = "Enemy";
+}

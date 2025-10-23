@@ -7,13 +7,13 @@ public class PlayerManager : MonoBehaviour
 {
     private NavMeshAgent agent;
     public MouseAimManager aimManager;
-    private PlayerAttack playerAttack;
     private PlayerMove playerMove;
+    private PlayerAttack playerAttack;
 
     private void Awake()
     {
-        playerAttack = GetComponent<PlayerAttack>();
         playerMove = GetComponent<PlayerMove>();
+        playerAttack = GetComponent<PlayerAttack>();
 
         agent = GetComponent<NavMeshAgent>();
     }
@@ -33,25 +33,17 @@ public class PlayerManager : MonoBehaviour
 
             var currentMouseAim = aimManager.CurrentMouseAim;
             var aimTarget = aimManager.AimTarget;
-            Debug.Log(currentMouseAim);
+
             switch ((MouseAim)currentMouseAim)
             {
                 case MouseAim.DoorWay:
-                    if (playerAttack.AttackCts != null)
-                    {
-                        playerAttack.CancelCts();
-                    }
                     playerMove.MoveToAnoterDoor();
                     break;
                 case MouseAim.Sword:
-                    var target = aimTarget.GetComponent<LivingEntity>();
-                    playerAttack.Attack(target).Forget();
+                    playerAttack.IsAttack = true;
+                    agent.SetDestination(playerMove.GetClickedGroud(mousePos));
                     break;
                 case MouseAim.Target:
-                    if (playerAttack.AttackCts != null)
-                    {
-                        playerAttack.CancelCts();
-                    }
                     agent.SetDestination(playerMove.GetClickedGroud(mousePos));
                     break;
                 case MouseAim.Pointer:

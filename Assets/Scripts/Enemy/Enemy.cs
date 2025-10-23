@@ -215,7 +215,7 @@ public class Enemy : LivingEntity
     //애니메이션 이벤트
     public void Hit()
     {
-        
+
     }
 
     private void OnDrawGizmosSelected()

@@ -1,8 +1,5 @@
 using System;
 using UnityEngine;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 using UnityEngine.AI;
 
 public class PlayerAttack : MonoBehaviour
@@ -12,44 +9,39 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     public MouseAimManager aimManager;
     private NavMeshAgent agent;
-
-    public CancellationTokenSource AttackCts { get; private set; } = null;
+    public bool IsAttack;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
-    public async UniTaskVoid Attack(LivingEntity obj)
+    public void Attack(LivingEntity obj)
     {
-        if (AttackCts != null) return;
+        var lookPos = obj.transform.position;
+        lookPos.y = transform.position.y;
 
-        AttackCts = new CancellationTokenSource();
-
-        await MoveToEnemy(obj.transform.position, AttackCts.Token);
+        transform.LookAt(lookPos);
 
         animator.SetTrigger(AnimatorParameter.Attack);
-
-        obj.OnDamage(attack);
-
-        AttackCts.Dispose();
-        AttackCts = null;
     }
 
-    private async UniTask MoveToEnemy(Vector3 pos, CancellationToken token)
+    public void Hit()
     {
-        agent.SetDestination(pos);
+        aimManager.AimTarget.GetComponent<LivingEntity>().OnDamage(attack);
+    }
 
-        while (!agent.isStopped)
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag(TagString.Enemy))
         {
-            await UniTask.Yield(cancellationToken: token);
+            agent.velocity = Vector3.zero;
+            agent.ResetPath();
+            if (IsAttack)
+            {
+                Attack(aimManager.AimTarget.GetComponent<LivingEntity>());
+                IsAttack = false;
+            }
         }
-    }
-
-    public void CancelCts()
-    {
-        AttackCts.Cancel();
-        AttackCts.Dispose();
-        AttackCts = null;
     }
 }

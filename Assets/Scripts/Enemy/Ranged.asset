@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365e25547a679c547b9743c36f2b73cd, type: 3}
   m_Name: Ranged
   m_EditorClassIdentifier: 
-  maxHp: 20
+  maxHp: 100
   damage: 10
-  speed: 1
+  speed: 3.5
   traceDistance: 8
-  attackDistance: 5
+  attackDistance: 4
   type: 1

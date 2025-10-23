@@ -12,13 +12,14 @@ public class DamageTextManager : MonoBehaviour
     private int poolIndex;
     private float offset = 2f;
 
-    public void ActiveDamage(int damage, Vector3 position)
+    public void ActiveDamage(int damage, Vector3 position, Color damageColor)
     {
         damageTextPool[poolIndex].SetActive(true);
         damageTextPool[poolIndex].transform.position = position + Vector3.up * offset;
         damageTextPool[poolIndex].transform.rotation = panel.transform.rotation;
 
         damageTextPool[poolIndex].GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
+        damageTextPool[poolIndex].GetComponentInChildren<TextMeshProUGUI>().color = damageColor;
         
         poolIndex++;
         if (poolIndex >= damageTextPool.Count)

@@ -25,7 +25,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public virtual void OnDamage(int damage)
     {
         HP -= damage;
-        damageEffect.ActiveDamage(damage, gameObject.transform.position);
+        damageEffect.ActiveDamage(damage, gameObject.transform.position, Color.red);
 
         if (HP <= 0 && !IsDead)
         {

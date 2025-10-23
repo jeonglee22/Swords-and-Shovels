@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FireEffectMover : MonoBehaviour
 {
-    public int damage = 30;
+    public int fixedDamage = 30;
 
     public float castRadius = 0.25f;                        
     public float skinWidth = 0.05f;
@@ -25,8 +25,6 @@ public class FireEffectMover : MonoBehaviour
         this.range = Mathf.Max(0.1f, range);
         this.delay = Mathf.Max(0f, delay);
         this.startPos = transform.position;
-
-        Debug.Log($"[FEM] Init s={this.speed}, r={this.range}, mask={damageMask.value}, trigger={triggerMode}");
     }
 
     void Update()
@@ -46,44 +44,35 @@ public class FireEffectMover : MonoBehaviour
             hits = hits.OrderBy(h => h.distance).ToArray();
 
             string list = string.Join(", ", hits.Select(h => $"{h.collider.name}[L{h.collider.gameObject.layer}]@{h.distance:F3}"));
-            Debug.Log($"[FEM] Hits: {list}");
 
             foreach (var h in hits)
             {
                 var go = h.collider.gameObject;
 
                 bool layerOK = ((damageMask.value & (1 << go.layer)) != 0);
-
                 var dmg = go.GetComponentInParent<IDamagable>() ?? go.GetComponent<IDamagable>();
 
                 if (layerOK && dmg != null)
                 {
-                    if (dmg is PlayerHealth) { Debug.Log("[FEM] Player는 무시"); continue; }
-
-                    Debug.Log($"[FEM] Damage → {go.name}, -{damage}");
-                    dmg.OnDamage(damage);
-                    Destroy(gameObject, delay);
+                    if (dmg is PlayerHealth) continue;
+                    Debug.Log($"{go.name}, -{fixedDamage}");
+                    dmg.OnDamage(fixedDamage);
                     return;
                 }
                 else
                 {
                     if (stopOnNonDamageable)
                     {
-                        Debug.Log($"[FEM] Blocked by {go.name} (non-damageable). Destroy.");
                         Destroy(gameObject, delay);
                         return;
                     }
-                    else
-                    {
-                        continue;
-                    }
+                    else continue;
                 }
             }
 
             if (stopOnNonDamageable)
             {
                 var first = hits[0];
-                Debug.Log($"[FEM] No damageable in path; first blocker {first.collider.name}. Destroy.");
                 Destroy(gameObject, delay);
                 return;
             }
@@ -93,7 +82,6 @@ public class FireEffectMover : MonoBehaviour
 
         if ((transform.position - startPos).sqrMagnitude >= range * range)
         {
-            Debug.Log("[FEM] Range exceeded → destroy");
             Destroy(gameObject, delay);
         }
     }
@@ -106,14 +94,13 @@ public class FireEffectMover : MonoBehaviour
         var dmg = go.GetComponentInParent<IDamagable>() ?? go.GetComponent<IDamagable>();
         if (layerOK && dmg != null)
         {
-            if (dmg is PlayerHealth) return; 
-            Debug.Log($"[FEM] Trigger Damage → {go.name}, -{damage}");
-            dmg.OnDamage(damage);
-            Destroy(gameObject, delay);
+            if (dmg is PlayerHealth) return;
+
+            Debug.Log($"{go.name}, -{fixedDamage}");
+            dmg.OnDamage(fixedDamage);
         }
         else if (stopOnNonDamageable)
         {
-            Debug.Log($"[FEM] Trigger blocked by {go.name} (non-damageable). Destroy.");
             Destroy(gameObject, delay);
         }
     }

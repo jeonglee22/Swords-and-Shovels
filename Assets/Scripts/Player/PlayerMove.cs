@@ -35,15 +35,13 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
 
         playerAttack = GetComponent<PlayerAttack>();
-
-        jumpPos1 = jumpLink.startPoint;
-        jumpPos2 = jumpLink.endPoint;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        jumpPos1 = jumpLink.startPoint + jumpLink.transform.position;
+        jumpPos2 = jumpLink.endPoint + jumpLink.transform.position;
     }
 
     // Update is called once per frame
@@ -65,17 +63,18 @@ public class PlayerMove : MonoBehaviour
             if(Vector3.Distance(transform.position, jumpPos1) <= jumpDistance)
             {
                 startPos = jumpPos1;
-                endPos = jumpPos2;
+                endPos = jumpPos2 + Vector3.forward * jumpDistance * 2f;
             }
             else
             {
                 startPos = jumpPos2;
-                endPos = jumpPos1;
+                endPos = jumpPos1 + Vector3.forward * jumpDistance * -2f;
             }
             IsCanJump = false;
             IsJump = true;
             isGround = false;
             agent.ResetPath();
+            agent.enabled = false;
         }
     }
 
@@ -88,11 +87,11 @@ public class PlayerMove : MonoBehaviour
             jumpStep = 0;
             IsJump = false;
             isGround = true;
-            agent.SetDestination(agentFinishPoint);
+            agent.enabled = true;
             return;
         }
 
-        var pos = GetBetweenJumpPoints(startPos, endPos, jumpStep++);
+        var pos = GetBetweenJumpPoints(startPos, endPos, jumpStep++ / 100f, 0.3f);
         transform.position = pos;
         Debug.Log(pos);
     }
@@ -125,21 +124,19 @@ public class PlayerMove : MonoBehaviour
         return transform.position;
     }
 
-    public Vector3 GetBetweenJumpPoints(Vector3 start, Vector3 end, int step)
+    public Vector3 GetBetweenJumpPoints(Vector3 start, Vector3 end, float t, float offsetMul)
     {
-        var centerPoint = (start + end) * 0.5f;
-
         Vector2 start2 = new Vector2(start.x, start.z);
         Vector2 end2 = new Vector2(end.x, end.z);
 
-        var QuadraticFunc = new Func<Vector2, float>(x => { return Vector2.Distance(x, start2) * Vector2.Distance(x, end2); });
- 
-        float t = (float)step / 100;
+        float horizontalDist = Vector2.Distance(start2, end2);
+        float h = horizontalDist * offsetMul;
 
-        var xPos = Mathf.Lerp(start.x, end.x, t);
-        var zPos = Mathf.Lerp(start.z, end.z, t);
+        Vector3 pos = Vector3.Lerp(start, end, t);
+        float baseY = Mathf.Lerp(start.y, end.y, t);
+        float arcY = 4f * h * t * (1f - t);
 
-        Vector3 point = new Vector3(xPos, QuadraticFunc(new Vector2(xPos, zPos)), zPos);
-        return point;
+        pos.y = baseY + arcY;
+        return pos;
     }
 }

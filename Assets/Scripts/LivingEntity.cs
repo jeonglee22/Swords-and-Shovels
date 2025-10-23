@@ -9,6 +9,13 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public bool IsDead { get; protected set; }
     public event Action OnDeath;
 
+    private DamageTextManager damageEffect;
+
+    private void Start()
+    {
+        damageEffect = GameObject.FindGameObjectWithTag(TagString.DamageText).GetComponent<DamageTextManager>();
+    }
+
     protected virtual void OnEnable()
     {
         IsDead = false;
@@ -18,6 +25,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public virtual void OnDamage(int damage)
     {
         HP -= damage;
+        damageEffect.ActiveDamage(damage, gameObject.transform.position);
 
         if (HP <= 0 && !IsDead)
         {

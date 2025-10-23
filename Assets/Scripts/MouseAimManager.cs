@@ -57,7 +57,6 @@ public class MouseAimManager : MonoBehaviour
             if (CheckMouseAimChange(MouseAim.Sword))
             {
                 AimTarget = hitEnemy.collider.gameObject;
-                Debug.Log(AimTarget.name);
                 var texture = mouseAimImages[(int)MouseAim.Sword];
                 Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
             }

@@ -93,7 +93,6 @@ public class PlayerMove : MonoBehaviour
 
         var pos = GetBetweenJumpPoints(startPos, endPos, jumpStep++ / 100f, 0.3f);
         transform.position = pos;
-        Debug.Log(pos);
     }
 
     public void MoveToAnoterDoor()

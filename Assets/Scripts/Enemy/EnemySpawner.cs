@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
 
     public List<EnemyDatas> datas = new List<EnemyDatas>();
     public Enemy prefab;
+
+    public event Action OnDispawn;
 
     private void Start()
     {
@@ -27,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
     public void CreateEnemy(Transform point)
     {
         var enemy = Instantiate(prefab, point.position, point.rotation);
-        enemy.Setup(datas[Random.Range(0, datas.Count)]);
+        enemy.Setup(datas[UnityEngine.Random.Range(0, datas.Count)]);
     }
 
     private void CheckEnemy()

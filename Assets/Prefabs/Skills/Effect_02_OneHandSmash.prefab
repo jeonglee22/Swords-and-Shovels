@@ -14804,8 +14804,8 @@ Transform:
   m_GameObject: {fileID: 7607619655946925671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
-  m_LocalScale: {x: 0, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7607619655647434614}
@@ -14826,7 +14826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 2
-  MoveSpeed: 10
+  MoveSpeed: 0.01
   AbleHit: 1
   HitDelay: 0.5
   m_hitObject: {fileID: 6782056314920602498, guid: b4a8e7ec07b06db44a09b8a9fb7dc3ed, type: 3}

@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 171146
   packageName: 100 Special Skills Effects Pack
   packageVersion: 24.9
-  assetPath: Assets/SpecialSkillsEffectsPack/AllEffects/EffectsSet_2(ScriptBased)/Effects/Effect_02_FastestFist/Effect_02_OneHandSmash.prefab
+  assetPath: Assets/Prefabs/Skills/Effect_02_OneHandSmash.prefab
   uploadId: 693318

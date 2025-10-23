@@ -154,8 +154,10 @@ MonoBehaviour:
   maxRayDistance: 200
   navMeshSampleMaxDist: 2
   playerHeightOffset: 0
-  fallSpeed: 60
+  fireSpeed: 12
   destroyDelay: 0.1
+  fireRange: 100
+  forwardOffset: 1.5
 --- !u!4 &40219292
 Transform:
   m_ObjectHideFlags: 0

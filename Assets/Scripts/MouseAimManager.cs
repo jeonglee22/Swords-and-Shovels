@@ -60,6 +60,14 @@ public class MouseAimManager : MonoBehaviour
                 Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
             }
         }
+        else if (Physics.Raycast(ray, out var hitInteractive, float.MaxValue, LayerMask.GetMask(LayerName.Interactive)))
+        {
+            if (CheckMouseAimChange(MouseAim.Interactive))
+            {
+                var texture = mouseAimImages[(int)MouseAim.Target];
+                Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
+            }
+        }
         else if (Physics.Raycast(ray, out var hitFloor, float.MaxValue, LayerMask.GetMask(LayerName.Floor)))
         {
             if(CheckMouseAimChange(MouseAim.Target))

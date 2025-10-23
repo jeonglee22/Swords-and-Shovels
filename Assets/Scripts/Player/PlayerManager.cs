@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     public MouseAimManager aimManager;
     private PlayerMove playerMove;
     private PlayerAttack playerAttack;
+    public PlayerInteractive playerInteractive;
 
     private void Awake()
     {
@@ -45,6 +46,9 @@ public class PlayerManager : MonoBehaviour
                     break;
                 case MouseAim.Target:
                     agent.SetDestination(playerMove.GetClickedGroud(mousePos));
+                    break;
+                case MouseAim.Interactive:
+                    playerInteractive.Interaction();
                     break;
                 case MouseAim.Pointer:
                 default:

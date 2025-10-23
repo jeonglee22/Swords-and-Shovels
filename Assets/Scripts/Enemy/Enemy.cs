@@ -48,7 +48,6 @@ public class Enemy : LivingEntity
             switch (currentStatus)
             {
                 case Status.Idle:
-                    animator.SetBool("HasTarget", false);
                     agent.isStopped = true;
                     break;
                 case Status.Trace:
@@ -73,6 +72,7 @@ public class Enemy : LivingEntity
 
     public void Setup(EnemyDatas data)
     {
+        this.data = data;
         maxHP = data.maxHp;
         damage = data.damage;
         agent.speed = data.speed;

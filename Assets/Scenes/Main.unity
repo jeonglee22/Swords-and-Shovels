@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimManager: {fileID: 843548381}
   jumpLink: {fileID: 566202683}
-  jumpDistance: 2
+  jumpDistance: 0.5
   doorMoveEndPos:
   - {fileID: 1666832940}
   - {fileID: 1572315643}

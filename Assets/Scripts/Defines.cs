@@ -10,6 +10,7 @@ public static class LayerName
     public readonly static string Floor = "Floor";
     public readonly static string Door = "Door";
     public readonly static string Enemy = "Enemy";
+    public readonly static string Interactive = "Interactive";
 }
 
 public static class AnimatorParameter
@@ -24,7 +25,7 @@ public enum MouseAim
     Pointer,
     Sword,
     Target,
-
+    Interactive,
     AimCount,
 }
 

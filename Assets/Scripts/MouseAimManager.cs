@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,8 +55,15 @@ public class MouseAimManager : MonoBehaviour
             if (CheckMouseAimChange(MouseAim.Sword))
             {
                 AimTarget = hitEnemy.collider.gameObject;
-                Debug.Log(AimTarget.name);
                 var texture = mouseAimImages[(int)MouseAim.Sword];
+                Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
+            }
+        }
+        else if (Physics.Raycast(ray, out var hitInteractive, float.MaxValue, LayerMask.GetMask(LayerName.Interactive)))
+        {
+            if (CheckMouseAimChange(MouseAim.Interactive))
+            {
+                var texture = mouseAimImages[(int)MouseAim.Target];
                 Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
             }
         }

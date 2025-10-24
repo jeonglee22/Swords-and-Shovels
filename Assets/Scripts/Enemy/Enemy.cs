@@ -49,15 +49,21 @@ public class Enemy : LivingEntity
             {
                 case Status.Idle:
                     agent.isStopped = true;
+                    agent.ResetPath();
+                    agent.velocity = Vector3.zero;
                     break;
                 case Status.Trace:
                     agent.isStopped = false;
                     break;
                 case Status.Attack:
                     agent.isStopped = true;
+                    agent.ResetPath();
+                    agent.velocity = Vector3.zero;
                     break;
                 case Status.Die:
                     agent.isStopped = true;
+                    agent.ResetPath();
+                    agent.velocity = Vector3.zero;
                     break;
             }
         }
@@ -119,6 +125,11 @@ public class Enemy : LivingEntity
 
     private void UpdateIdle()
     {
+        if(agent.velocity.magnitude > 0.1f)
+        {
+            agent.velocity = Vector3.zero;
+        }
+
         if(target != null && Vector3.Distance(transform.position, target.position) < traceDistance)
         {
             CurrentStatus = Status.Trace;
@@ -150,15 +161,30 @@ public class Enemy : LivingEntity
 
     private void UpdateAttack()
     {
-        if(target == null || (target != null && Vector3.Distance(transform.position, target.position) > attackDistance))
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            agent.velocity = Vector3.zero;
+        }
+
+        if (target == null || (target != null && Vector3.Distance(transform.position, target.position) > attackDistance))
         {
             CurrentStatus = Status.Trace;
             return;
         }
 
-        var lookAt = target.position;
-        lookAt.y = transform.position.y;
-        transform.LookAt(lookAt);
+        Vector3 direction = (target.position - transform.position).normalized;
+        direction.y = 0;
+
+        if(direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            float angle = Quaternion.Angle(transform.rotation, targetRotation);
+
+            if(angle > 1f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+        }
 
         if(lastAttackTime + attackInterval < Time.time)
         {

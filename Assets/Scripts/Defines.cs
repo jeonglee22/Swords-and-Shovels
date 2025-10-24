@@ -32,4 +32,5 @@ public enum MouseAim
 public static class TagString
 {
     public readonly static string Enemy = "Enemy";
+    public readonly static string DamageText = "DamageText";
 }

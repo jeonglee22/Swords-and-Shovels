@@ -7,6 +7,7 @@ TagManager:
   - HardFloor
   - Doorway
   - Enemy
+  - DamageText
   layers:
   - Default
   - TransparentFX
@@ -15,12 +16,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Jump
   - Door
   - Enemy
   - Interactive
-  - 
-  - 
   - 
   - 
   - 

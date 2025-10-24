@@ -9,6 +9,7 @@ public class MouseAimManager : MonoBehaviour
     private MouseAim currentMouseAim = MouseAim.Pointer;
     public int CurrentMouseAim { get { return (int) currentMouseAim; } }
     public GameObject AimTarget { get; private set; }
+    public Transform AimPosition { get; private set; }
     public Texture2D[] mouseAimImages;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,6 +47,7 @@ public class MouseAimManager : MonoBehaviour
         {
             if (CheckMouseAimChange(MouseAim.DoorWay))
             {
+                AimPosition = hitDoor.transform;
                 var texture = mouseAimImages[(int)MouseAim.DoorWay];
                 Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
             }
@@ -71,6 +73,7 @@ public class MouseAimManager : MonoBehaviour
         {
             if(CheckMouseAimChange(MouseAim.Target))
             {
+                AimPosition = hitFloor.transform;
                 var texture = mouseAimImages[(int)MouseAim.Target];
                 Cursor.SetCursor(texture, texture.Size() * 0.5f, CursorMode.Auto);
             }

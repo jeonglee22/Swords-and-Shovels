@@ -41,10 +41,14 @@ public class PlayerManager : MonoBehaviour
                     playerMove.MoveToAnoterDoor();
                     break;
                 case MouseAim.Sword:
+                    if (!agent.gameObject.activeSelf)
+                        return;
                     playerAttack.IsAttack = true;
                     agent.SetDestination(playerMove.GetClickedGroud(mousePos));
                     break;
                 case MouseAim.Target:
+                    if (!agent.gameObject.activeSelf)
+                        return;
                     agent.SetDestination(playerMove.GetClickedGroud(mousePos));
                     break;
                 case MouseAim.Interactive:

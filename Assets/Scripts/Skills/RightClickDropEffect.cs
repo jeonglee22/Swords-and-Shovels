@@ -59,7 +59,7 @@ public class RightClickDropEffect : MonoBehaviour
                 break;
 
             case 4:
-                PlaceOnGround(forestEffectPrefab);
+                PlaceOnGround(forestEffectPrefab, 0f);
                 break;
         }
     }

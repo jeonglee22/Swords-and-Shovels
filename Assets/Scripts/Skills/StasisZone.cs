@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class StasisZone : MonoBehaviour
 {
     public float radius = 6f;              
-    public float freezeDuration = 3f;      
+    public float freezeDuration = 1f;      
     public LayerMask enemyMask;            
     public float tickInterval = 0.2f;     
     public float zoneLifeTime = 3.3f;      

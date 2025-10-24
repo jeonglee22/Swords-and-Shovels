@@ -19643,6 +19643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5511052677990246608}
+  - component: {fileID: -7072388439350280448}
   m_Layer: 0
   m_Name: Effect_38_GloryBoundary
   m_TagString: Untagged
@@ -19673,6 +19674,31 @@ Transform:
   - {fileID: 5511052678952658151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7072388439350280448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5511052677990246615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bd01677c6f6664eb4b90f48ec50b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  healAmount: 50
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  zoneLifeTime: 3
+  healOnce: 1
+  destroyOnHeal: 1
+  initialDelayBeforeHeal: 0.15
+  minVisibleAfterHeal: 0.6
+  useDirectPlayerFind: 1
+  playerTag: Player
+  verbose: 0
 --- !u!1 &5511052678458106875
 GameObject:
   m_ObjectHideFlags: 0

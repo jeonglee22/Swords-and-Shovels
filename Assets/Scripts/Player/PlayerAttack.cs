@@ -31,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
     public void Hit()
     {
         aimManager.AimTarget.GetComponent<LivingEntity>().OnDamage(attack);
+        attackParticle.Play();
     }
 
     private void OnCollisionStay(Collision collision)
@@ -40,7 +41,6 @@ public class PlayerAttack : MonoBehaviour
             agent.velocity = Vector3.zero;
             agent.ResetPath();
             Attack(aimManager.AimTarget.GetComponent<LivingEntity>());
-            attackParticle.Play();
             IsAttack = false;
         }
     }
